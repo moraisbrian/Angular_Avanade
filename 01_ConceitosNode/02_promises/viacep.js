@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const cep = '13224430';
 const url = `https://viacep.com.br/ws/${cep}/json/`;
 

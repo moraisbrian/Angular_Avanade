@@ -7,6 +7,6 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(allowCors);
 
-server.listen(3200, () => 'Servidor do webservice no ar');
+server.listen(3200, () => console.log('Servidor do webservice no ar'));
 
 module.exports = server;
