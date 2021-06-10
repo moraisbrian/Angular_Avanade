@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Funcionario } from './classes/funcionario.classe';
+import { Salario } from './classes/salario.classe';
 import { FuncionarioService } from './services/funcionario.service';
 
 @Component({
@@ -28,5 +29,20 @@ export class AppComponent implements OnInit {
 
   public mostrar(nome: string): void {
     this.nomeFuncionario = nome;
+  }
+
+  // Exemplo 03 - listas com filtros
+  public filtrar(event: string): void {
+    this.listar();
+    this.funcionarios = this.funcionarios
+      .filter(f => f.nome.toLowerCase().includes(event.toLowerCase()));
+  }
+
+  // Exemplo 04 - binding bidirecional
+  public salario: Salario = new Salario();
+  public imposto: number = 0;
+
+  public efetuarCalculo(): void {
+    this.imposto = this.salario.calcular();
   }
 }

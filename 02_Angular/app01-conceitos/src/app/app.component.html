@@ -1,3 +1,4 @@
+<!--
 <h1>Projeto Angular</h1>
 <hr>
 <div class="row">
@@ -9,11 +10,50 @@
     <br>
     <span>Forma 2: </span>
     <input type="text" [value]="rnd">
+    <hr>
+    <h3>Exemplo 03 - Binding unidirecional + filtros</h3>
+    <input type="text" #texto (keyup)="filtrar(texto.value)">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Idade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let funcionario of funcionarios">
+          <td>{{ funcionario.nome }}</td>
+          <td>{{ funcionario.idade }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="col-6">
     <h3>Exemplo 02 - Diretiva ngFor</h3>
-    <select>
+    <select #lista (change)="mostrar(lista.value)">
+      <option value="">SELECIONE</option>
       <option *ngFor="let funcionario of funcionarios">{{ funcionario.nome }}</option>
     </select>
+    <div *ngIf="nomeFuncionario; else blocoElse">
+      Nome Selecionado: {{ nomeFuncionario }}
+    </div>
+    <ng-template #blocoElse>
+      <div>Nenhum nome selecionado</div>
+    </ng-template>
+    <hr>
+    <h3>Exemplo 04 - Binding bidirecional</h3>
+    <span>Informe o salário: </span>
+    <input type="text" [(ngModel)]="salario.valor">
+    <br>
+    <span>Valor do imposto: {{ salario.calcular() }}</span>
+    <br>
+    <br>
+    <span>Informe o salário: </span>
+    <input style="margin-right: 10px;" type="text" [(ngModel)]="salario.valor">
+    <button (click)="efetuarCalculo()">Calcular Imposto</button>
+    <br>
+    <span>Valor do imposto: {{ imposto }}</span>
   </div>
 </div>
+-->
+<app-contato></app-contato>

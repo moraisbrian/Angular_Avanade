@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>Ficha de Contatos</h1>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" class="form-control" [(ngModel)]="nome">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" [(ngModel)]="email">
+      </div>
+      <div class="form-group">
+        <label>Celular</label>
+        <input type="text" class="form-control" [(ngModel)]="celular">
+      </div>
+      <button (click)="adicionarContato()" [disabled]="nome === '' || email === '' || celular === ''" type="submit"
+        class="btn btn-primary">
+        Incluir
+      </button>
+    </div>
+    <div class="col-6">
+      <table class="table table-hover" style="margin-top: 32px;">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Celular</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr #linha *ngFor="let contato of contatos" (click)="exibirContato(linha)">
+            <td>{{ contato.nome }}</td>
+            <td>{{ contato.email }}</td>
+            <td>{{ contato.celular }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
