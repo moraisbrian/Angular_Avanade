@@ -7,4 +7,7 @@ module.exports = (server) => {
 
     const Contatos = require('../ws/contatos/contatoService');
     Contatos.register(router, '/contatos');
+
+    const Produtos = require('../ws/produtos/produtoService');
+    Produtos.register(router, '/produtos')
 };
