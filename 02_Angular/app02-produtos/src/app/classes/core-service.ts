@@ -14,4 +14,12 @@ export abstract class CoreService<T> {
   public getLista(): Observable<T[]> {
     return this.http.get<T[]>(this.url);
   }
+
+  public postItem(item: T): Observable<T> {
+    return this.http.post<T>(this.url, item);
+  }
+
+  public getItem(id: string): Observable<T> {
+    return this.http.get<T>(`${this.url}/${id}`);
+  }
 }

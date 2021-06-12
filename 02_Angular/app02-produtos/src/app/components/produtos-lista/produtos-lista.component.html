@@ -18,7 +18,10 @@
         <td>{{ produto.preco }}</td>
         <td>{{ produto.categoria }}</td>
         <td>
-          <a routerLink='/produtos/novo' class="btn btn-secondary">Alterar</a>
+          <a routerLink="/produtos/alteracao/{{ produto._id }}" class="btn btn-secondary">
+            <i class="fas fa-edit"></i>
+            Alterar
+          </a>
         </td>
       </tr>
     </tbody>
