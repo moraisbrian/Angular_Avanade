@@ -5,9 +5,12 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ResumoComponent } from './components/resumo/resumo.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'sobre', component: ResumoComponent },
+  { path: 'produtos',
+      loadChildren: () => import('./components/produtos/produtos.module')
+        .then(module => module.ProdutosModule) },
   { path: '**', component: NotfoundComponent }
 ];
 

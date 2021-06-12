@@ -1,0 +1,26 @@
+<div class="m-2">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Descrição</th>
+        <th>Unidade</th>
+        <th>Preço</th>
+        <th>Categoria</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of listaProdutos">
+        <td>{{ produto.codigo }}</td>
+        <td>{{ produto.descricao }}</td>
+        <td>{{ produto.unidade }}</td>
+        <td>{{ produto.preco }}</td>
+        <td>{{ produto.categoria }}</td>
+        <td>
+          <a routerLink='/produtos/novo' class="btn btn-secondary">Alterar</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
