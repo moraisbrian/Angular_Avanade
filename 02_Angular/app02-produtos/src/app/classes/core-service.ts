@@ -22,4 +22,12 @@ export abstract class CoreService<T> {
   public getItem(id: string): Observable<T> {
     return this.http.get<T>(`${this.url}/${id}`);
   }
+
+  public putItem(id: string, item: T): Observable<T> {
+    return this.http.put<T>(`${this.url}/${id}`, item);
+  }
+
+  public deleteItem(id: string): Observable<T> {
+    return this.http.delete<T>(`${this.url}/${id}`);
+  }
 }

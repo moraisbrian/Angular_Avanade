@@ -13,8 +13,7 @@ export class ProdutosListaComponent implements OnInit, OnDestroy {
   constructor(private service: ProdutosService) { }
 
   ngOnInit(): void {
-    this.subscription = this.service.getLista()
-      .subscribe((result: Produto[]) => this.listaProdutos = result);
+    this.listarProdutos();
   }
 
   ngOnDestroy(): void {
@@ -25,4 +24,8 @@ export class ProdutosListaComponent implements OnInit, OnDestroy {
 
   public listaProdutos: Produto[] = [];
 
+  public listarProdutos(): void {
+    this.subscription.add(this.service.getLista()
+      .subscribe((result: Produto[]) => this.listaProdutos = result));
+  }
 }

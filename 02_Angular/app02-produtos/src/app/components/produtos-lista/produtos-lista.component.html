@@ -13,14 +13,18 @@
     <tbody>
       <tr *ngFor="let produto of listaProdutos">
         <td>{{ produto.codigo }}</td>
-        <td>{{ produto.descricao }}</td>
+        <td>{{ produto.descricao | uppercase }}</td>
         <td>{{ produto.unidade }}</td>
-        <td>{{ produto.preco }}</td>
+        <td>{{ produto.preco | currency:'BRL' }}</td>
         <td>{{ produto.categoria }}</td>
         <td>
           <a routerLink="/produtos/alteracao/{{ produto._id }}" class="btn btn-secondary">
             <i class="fas fa-edit"></i>
             Alterar
+          </a>
+          <a routerLink="/produtos/remocao/{{ produto._id }}" class="btn btn-danger ml-2">
+            <i class="fas fa-trash"></i>
+            Deletar
           </a>
         </td>
       </tr>

@@ -1,1 +1,85 @@
-<p>produto-alteracao works!</p>
+<div class="mt-3">
+  <div class="row">
+    <div class="col-6">
+      <h1>Alteração de Produto</h1>
+      <form [formGroup]="builderForm" (ngSubmit)="alterarProduto()">
+        <div class="form-group">
+          <label>Id:</label>
+          <input type="text" class="form-control" readonly formControlName="_id">
+        </div>
+        <div class="form-group">
+          <label>Código:</label>
+          <input type="number" class="form-control" formControlName="codigo"
+          [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+          <div *ngIf="submitted && f.codigo.errors" class="text-danger">
+            <small *ngIf="f.codigo.errors.required">
+              O código é obrigatório
+            </small>
+            <small *ngIf="f.codigo.errors.min">
+              O código deve ser maior que 0
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descrição:</label>
+          <input type="text" class="form-control" formControlName="descricao"
+          [ngClass]="{ 'is-invalid': submitted && f.descricao.errors }">
+          <div *ngIf="submitted && f.descricao.errors" class="text-danger">
+            <small *ngIf="f.descricao.errors.required">
+              A descrição é obrigatória
+            </small>
+            <small *ngIf="f.descricao.errors.minlength">
+              A descrição deve ter no mínimo 3 caracteres
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Unidade:</label>
+          <input type="text" class="form-control" formControlName="unidade"
+          [ngClass]="{ 'is-invalid': submitted && f.unidade.errors }">
+          <div *ngIf="submitted && f.unidade.errors" class="text-danger">
+            <small *ngIf="f.unidade.errors.required">
+              A unidade é obrigatória
+            </small>
+            <small *ngIf="f.unidade.errors.minlength || f.unidade.errors.maxlength">
+              A unidade deve ter entre 2 e 5 caracteres
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Preço:</label>
+          <input type="text" class="form-control" formControlName="preco"
+          [ngClass]="{ 'is-invalid': submitted && f.preco.errors }">
+          <div *ngIf="submitted && f.preco.errors" class="text-danger">
+            <small *ngIf="f.preco.errors.required">
+              O preço é obrigatório
+            </small>
+            <small *ngIf="f.preco.errors.min">
+              O preço deve ser maior que 0
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select class="form-control" formControlName="categoria"
+          [ngClass]="{ 'is-invalid': submitted && f.preco.errors }">
+            <option value="" selected>SELECIONE A CATEGORIA</option>
+            <option value="INFORMATICA">Informática</option>
+            <option value="VESTUARIO">Vestuário</option>
+            <option value="ALIMENTACAO">Alimentação</option>
+            <option value="HIGIENE">Higiene</option>
+            <option value="CONSTRUCAO">Construção</option>
+          </select>
+          <div *ngIf="submitted && f.categoria.errors" class="text-danger">
+            <small *ngIf="f.categoria.errors.required">
+              A categoria é obrigatória
+            </small>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Alterar Produto</button>
+        <button (click)="limpar()" class="btn btn-secondary ml-2">Limpar</button>
+        <button (click)="cancelar()" class="btn btn-secondary ml-2">Cancelar</button>
+      </form>
+    </div>
+  </div>
+</div>

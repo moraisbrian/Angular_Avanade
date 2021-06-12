@@ -1,0 +1,11 @@
+<div class="row mt-3">
+  <div class="col-12">
+    <h1>Deseja Realmente deletar o produto {{ produto?.descricao }}?</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <button (click)="deletar()" class="btn btn-danger">Sim</button>
+    <button (click)="cancelar()" class="btn btn-primary ml-2">Não</button>
+  </div>
+</div>
