@@ -106,7 +106,7 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
         this.form.setValue({
           '_id': cliente._id,
           'nome': cliente.nome,
-          'dataNascimento': cliente.dataNascimento.toISOString(), // Verificar
+          'dataNascimento': new Date(cliente.dataNascimento).toISOString().substring(0, 10),
           'cpf': cliente.cpf,
           'email': cliente.email
         });
@@ -156,6 +156,7 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
     this.adicionandoProduto = false;
     this.alterandoCliente = false;
     if (cliente._id) {
+      cliente.dataNascimento = new Date(cliente.dataNascimento);
       this.clienteDetalhes = cliente;
       this.produtosDetalhe = this.produtos.filter(produto => {
         if (produto._id) {
