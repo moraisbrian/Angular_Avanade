@@ -115,8 +115,8 @@
         <td>{{ cliente.cpf }}</td>
         <td>{{ cliente.email }}</td>
         <td>
-          <button #btnAddProdutos value="{{ cliente._id }}" (click)="selecionarProdutos(btnAddProdutos.value)"
-            class="btn btn-warning">
+          <button #btnAddProdutos value="{{ cliente._id }}" (click)="selecionarProdutos(btnAddProdutos.value)"class="btn btn-warning">
+            <i class="fas fa-plus-circle"></i>
             Adicionar Produto
           </button>
           <button #btnAlterar value="{{ cliente._id }}" (click)="alterar(btnDeletar.value)"
@@ -129,6 +129,7 @@
             Deletar
           </button>
           <button #btnDetalhes (click)="exibirDetalhes(cliente)" class="btn btn-success ml-2">
+            <i class="fas fa-info-circle"></i>
             Detalhes
           </button>
         </td>
