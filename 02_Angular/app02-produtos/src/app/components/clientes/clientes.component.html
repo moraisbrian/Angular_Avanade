@@ -27,11 +27,10 @@
             <input type="email" class="form-control" formControlName="email">
           </div>
           <div class="form-group">
-            <label>Produto Inicial:</label>
-            <select class="form-control" formControlName="produto">
-              <option value="" selected>SELECIONE O PRODUTO</option>
-              <option *ngFor="let produto of produtos" value="{{ produto._id }}">{{ produto.descricao }}</option>
-            </select>
+            <label>Produtos:</label>
+            <ul class="list-group">
+              <li [ngClass]="{ 'selecionado': selecionado(produto) }" (click)="adicionarProduto(produto)" class="list-group-item" *ngFor="let produto of produtos">{{ produto.descricao }}</li>
+            </ul>
           </div>
         </div>
         <div class="modal-footer">

@@ -10,23 +10,19 @@
         </button>
       </div>
       <div *ngIf="adicionandoProduto; else clienteForm">
-        <form [formGroup]="produtoForm" (ngSubmit)="addProduto()">
           <div class="modal-body">
             <div class="form-group">
-              <label>Selecionar Produto:</label>
-              <select class="form-control" formControlName="produto">
-                <option value="" selected>SELECIONE O PRODUTO</option>
-                <option *ngFor="let produto of produtos" value="{{ produto._id }}">{{ produto.descricao }}
-                </option>
-              </select>
+              <label>Produtos:</label>
+              <ul class="list-group">
+                <li [ngClass]="{ 'selecionado': selecionado(produto) }" (click)="adicionarProduto(produto)" class="list-group-item" *ngFor="let produto of produtos">{{ produto.descricao }}</li>
+              </ul>
             </div>
           </div>
           <div class="modal-footer">
             <button (click)="limparFormulario()" type="reset" class="btn btn-secondary"
               data-dismiss="modal">Cancelar</button>
-            <button [disabled]="!produtoForm.valid" type="submit" class="btn btn-primary">Adicionar</button>
+            <button (click)="addProduto()" [disabled]="produtosAdicionados.length <= 0" type="submit" class="btn btn-primary">Adicionar</button>
           </div>
-        </form>
       </div>
       <ng-template #clienteForm>
         <div *ngIf="exibindoDetalhes; else alterar">

@@ -34,9 +34,27 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
     'email': new FormControl('', [Validators.required])
   });
 
-  public produtoForm: FormGroup = new FormGroup({
-    'produto': new FormControl('', [Validators.required])
-  });
+  public produtosAdicionados: string[] = [];
+
+  public adicionarProduto(produto: Produto): void {
+    if (produto._id) {
+      const possui = this.produtosAdicionados.find(id => id === produto._id);
+      if (possui) {
+        this.produtosAdicionados = this.produtosAdicionados.filter(id => id !== produto._id);
+      } else {
+        this.produtosAdicionados.push(produto._id);
+      }
+    }
+  }
+
+  public selecionado(produto: Produto): boolean {
+    if (produto._id) {
+      const adicionado = this.produtosAdicionados.find(p => p === produto._id);
+      if (adicionado)
+        return true;
+    }
+    return false;
+  }
 
   public clientes!: Cliente[];
   public produtos!: Produto[];
@@ -88,7 +106,7 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
         this.form.setValue({
           '_id': cliente._id,
           'nome': cliente.nome,
-          'dataNascimento': cliente.dataNascimento, // Verificar
+          'dataNascimento': cliente.dataNascimento.toISOString(), // Verificar
           'cpf': cliente.cpf,
           'email': cliente.email
         });
@@ -106,7 +124,7 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
   }
 
   public limparFormulario(): void {
-    this.produtoForm.reset();
+    this.produtosAdicionados = [];
     this.form.reset();
   }
 
@@ -119,10 +137,10 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
   }
 
   public addProduto(): void {
-    if (this.produtoForm.valid) {
+    if (this.produtosAdicionados.length > 0) {
       this.subscriptions.add(this.clientesService.getItem(this.clienteSelecionadoId)
         .subscribe((cliente: Cliente) => {
-          cliente.produtos.push(this.produtoForm.value.produto);
+          this.produtosAdicionados.forEach(produto => cliente.produtos.push(produto));
           this.subscriptions.add(this.clientesService.putItem(this.clienteSelecionadoId, cliente)
             .subscribe(() => {
               alert('Produto adicionado');

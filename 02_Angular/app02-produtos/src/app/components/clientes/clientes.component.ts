@@ -33,7 +33,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/clientes/novo']);
   }
 
-  @ViewChild('btnFecharModal', { static: true}) private btnFecharModal!: ElementRef;
+  @ViewChild('btnFecharModal', { static: true }) private btnFecharModal!: ElementRef;
 
   public clienteAdicionado: EventEmitter<boolean> = new EventEmitter<boolean>();
   private subscriptions: Subscription = new Subscription();
@@ -41,12 +41,33 @@ export class ClientesComponent implements OnInit, OnDestroy {
   public produtos: Produto[] = [];
 
   public form: FormGroup = new FormGroup({
-    'nome': new FormControl('', [ Validators.required ]),
-    'dataNascimento': new FormControl('', [ Validators.required ]),
-    'cpf': new FormControl('', [ Validators.required ]),
-    'email': new FormControl('', [ Validators.required ]),
-    'produto': new FormControl('', [ Validators.required ])
+    'nome': new FormControl('', [Validators.required]),
+    'dataNascimento': new FormControl('', [Validators.required]),
+    'cpf': new FormControl('', [Validators.required]),
+    'email': new FormControl('', [Validators.required])
   });
+
+  public produtosAdicionados: string[] = [];
+
+  public adicionarProduto(produto: Produto): void {
+    if (produto._id) {
+      const possui = this.produtosAdicionados.find(id => id === produto._id);
+      if (possui) {
+        this.produtosAdicionados = this.produtosAdicionados.filter(id => id !== produto._id);
+      } else {
+        this.produtosAdicionados.push(produto._id);
+      }
+    }
+  }
+
+  public selecionado(produto: Produto): boolean {
+    if (produto._id) {
+      const adicionado = this.produtosAdicionados.find(p => p === produto._id);
+      if (adicionado)
+        return true;
+    }
+    return false;
+  }
 
   public adicionarCliente(): void {
     if (this.form.valid) {
@@ -55,18 +76,20 @@ export class ClientesComponent implements OnInit, OnDestroy {
         this.form.value.dataNascimento,
         this.form.value.cpf,
         this.form.value.email,
-        [this.form.value.produto]
+        this.produtosAdicionados
       );
       this.subscriptions.add(this.clientesService.postItem(cliente)
         .subscribe(() => {
           this.clienteAdicionado.emit(true);
           this.btnFecharModal.nativeElement.click();
           alert('Cliente adicionado');
+          this.limparFormulario();
         }));
     }
   }
 
   public limparFormulario(): void {
     this.form.reset();
+    this.produtosAdicionados = []
   }
 }
