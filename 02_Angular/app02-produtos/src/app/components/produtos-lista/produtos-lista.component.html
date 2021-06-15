@@ -1,4 +1,21 @@
 <div class="m-2">
+  <div class="row">
+    <div class="form-group col-6">
+      <label>Informe a descrição:</label>
+      <input type="text" class="form-control" #busca (keyup)="0">
+    </div>
+    <div class="form-group col-6">
+      <label>Selecionar categoria:</label>
+      <select class="form-control" (change)="0" #categoria>
+        <option value="" selected>SELECIONE A CATEGORIA</option>
+        <option value="INFORMATICA">Informática</option>
+        <option value="VESTUARIO">Vestuário</option>
+        <option value="ALIMENTACAO">Alimentação</option>
+        <option value="HIGIENE">Higiene</option>
+        <option value="CONSTRUCAO">Construção</option>
+      </select>
+    </div>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -11,11 +28,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let produto of listaProdutos">
+      <tr *ngFor="let produto of listaProdutos | subLista:busca.value | categoria:categoria.value">
         <td>{{ produto.codigo }}</td>
         <td>{{ produto.descricao | uppercase }}</td>
-        <td>{{ produto.unidade }}</td>
-        <td>{{ produto.preco | currency:'BRL' }}</td>
+        <td>{{ produto.unidade | simbolo }}</td>
+        <td>{{ produto.preco | currency:'BRL' }} -> {{ produto.preco | desconto:5 | currency:'BRL' }}</td>
         <td>{{ produto.categoria }}</td>
         <td>
           <a routerLink="/produtos/alteracao/{{ produto._id }}" class="btn btn-secondary">

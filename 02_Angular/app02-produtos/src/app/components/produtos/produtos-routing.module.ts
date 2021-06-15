@@ -4,10 +4,11 @@ import { ProdutoAlteracaoComponent } from '../produto-alteracao/produto-alteraca
 import { ProdutoRemocaoComponent } from '../produto-remocao/produto-remocao.component';
 import { ProdutoNovoComponent } from '../produto-novo/produto-novo.component';
 import { ProdutosComponent } from './produtos.component';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: ProdutosComponent },
-  { path: 'novo', component: ProdutoNovoComponent },
+  { path: 'novo', component: ProdutoNovoComponent, canActivate: [ AuthGuardService ] },
   { path: 'alteracao/:id', component: ProdutoAlteracaoComponent },
   { path: 'remocao/:id', component: ProdutoRemocaoComponent }
 ];

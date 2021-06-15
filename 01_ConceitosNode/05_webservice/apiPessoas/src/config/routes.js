@@ -9,5 +9,8 @@ module.exports = (server) => {
     Contatos.register(router, '/contatos');
 
     const Produtos = require('../ws/produtos/produtoService');
-    Produtos.register(router, '/produtos')
+    Produtos.register(router, '/produtos');
+
+    const Clientes = require('../ws/clientes/clienteService');
+    Clientes.register(router, '/clientes');
 };

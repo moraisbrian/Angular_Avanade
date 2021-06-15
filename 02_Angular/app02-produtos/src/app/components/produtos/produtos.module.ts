@@ -9,6 +9,9 @@ import { ProdutosListaComponent } from '../produtos-lista/produtos-lista.compone
 import { ProdutoAlteracaoComponent } from '../produto-alteracao/produto-alteracao.component';
 import { ProdutoRemocaoComponent } from '../produto-remocao/produto-remocao.component';
 import { SubListaPipe } from 'src/app/pipes/sub-lista.pipe';
+import { SimboloPipe } from 'src/app/pipes/simbolo.pipe';
+import { DescontoPipe } from '../../pipes/desconto.pipe';
+import { CategoriaPipe } from 'src/app/pipes/categoria.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { SubListaPipe } from 'src/app/pipes/sub-lista.pipe';
     ProdutosListaComponent,
     ProdutoAlteracaoComponent,
     ProdutoRemocaoComponent,
-    SubListaPipe
+    SubListaPipe,
+    SimboloPipe,
+    DescontoPipe,
+    CategoriaPipe
   ],
   imports: [
     CommonModule,
