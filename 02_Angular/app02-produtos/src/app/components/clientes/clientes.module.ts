@@ -4,12 +4,13 @@ import { ClientesRoutingModule } from './clientes-routing.module';
 import { ClientesListaComponent } from '../clientes-lista/clientes-lista.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClientesComponent } from './clientes.component';
-
+import { SubListaClientePipe } from 'src/app/pipes/sub-lista-cliente.pipe';
 
 @NgModule({
   declarations: [
     ClientesListaComponent,
-    ClientesComponent
+    ClientesComponent,
+    SubListaClientePipe
   ],
   imports: [
     CommonModule,

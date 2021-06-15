@@ -1,14 +1,101 @@
+<div class="modal fade" id="alterarModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="alterarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alterarModalLabel">{{ adicionandoProduto ? 'Adicionar produto' : alterandoCliente ?
+          'Alterar cliente' : 'Detalhes' }}</h5>
+        <button #btnFecharModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="adicionandoProduto; else clienteForm">
+        <form [formGroup]="produtoForm" (ngSubmit)="addProduto()">
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Selecionar Produto:</label>
+              <select class="form-control" formControlName="produto">
+                <option value="" selected>SELECIONE O PRODUTO</option>
+                <option *ngFor="let produto of produtos" value="{{ produto._id }}">{{ produto.descricao }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button (click)="limparFormulario()" type="reset" class="btn btn-secondary"
+              data-dismiss="modal">Cancelar</button>
+            <button [disabled]="!produtoForm.valid" type="submit" class="btn btn-primary">Adicionar</button>
+          </div>
+        </form>
+      </div>
+      <ng-template #clienteForm>
+        <div *ngIf="exibindoDetalhes; else alterar">
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="form-group">
+                <label>Nome:</label>
+                <input type="text" class="form-control" readonly [value]="clienteDetalhes.nome">
+              </div>
+              <label>Data de Nascimento:</label>
+              <input type="date" class="form-control" readonly [value]="clienteDetalhes.dataNascimento">
+            </div>
+            <div class="form-group">
+              <label>CPF:</label>
+              <input type="text" class="form-control" readonly [value]="clienteDetalhes.cpf">
+            </div>
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="email" class="form-control" readonly [value]="clienteDetalhes.email">
+            </div>
+            <div class="form-group">
+              <label>Produtos:</label>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let produto of produtosDetalhe">{{ produto.descricao }}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+        <ng-template #alterar>
+          <form [formGroup]="form" (ngSubmit)="alterarCliente()">
+            <input type="hidden" formControlName="_id">
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Nome:</label>
+                <input type="text" class="form-control" formControlName="nome">
+              </div>
+              <div class="form-group">
+                <label>Data de Nascimento:</label>
+                <input type="date" class="form-control" formControlName="dataNascimento">
+              </div>
+              <div class="form-group">
+                <label>CPF:</label>
+                <input type="text" class="form-control" formControlName="cpf">
+              </div>
+              <div class="form-group">
+                <label>Email:</label>
+                <input type="email" class="form-control" formControlName="email">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button (click)="limparFormulario()" type="reset" class="btn btn-secondary"
+                data-dismiss="modal">Cancelar</button>
+              <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Alterar</button>
+            </div>
+          </form>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<button data-toggle="modal" data-target="#alterarModal" hidden #btnExibirAlterarModal></button>
 <div class="m-2">
   <div class="row">
     <div class="form-group col-6">
       <label>Informe o nome do cliente:</label>
       <input type="text" class="form-control" #busca (keyup)="0">
-    </div>
-    <div class="form-group col-6">
-      <label>Selecionar categoria:</label>
-      <select class="form-control" (change)="0" #categoria>
-        <option value="" selected>SELECIONE O PRODUTO</option>
-      </select>
     </div>
   </div>
   <table class="table table-striped">
@@ -22,22 +109,27 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cliente of clientes">
+      <tr *ngFor="let cliente of clientes | subListaCliente:busca.value">
         <td>{{ cliente.nome }}</td>
         <td>{{ cliente.dataNascimento | date:'dd/MM/yyyy' }}</td>
         <td>{{ cliente.cpf }}</td>
         <td>{{ cliente.email }}</td>
         <td>
-          <button value="{{ cliente._id }}" class="btn btn-warning">
+          <button #btnAddProdutos value="{{ cliente._id }}" (click)="selecionarProdutos(btnAddProdutos.value)"
+            class="btn btn-warning">
             Adicionar Produto
           </button>
-          <button value="{{ cliente._id }}" class="btn btn-secondary ml-2">
+          <button #btnAlterar value="{{ cliente._id }}" (click)="alterar(btnDeletar.value)"
+            class="btn btn-secondary ml-2">
             <i class="fas fa-edit"></i>
             Alterar
           </button>
-          <button value="{{ cliente._id }}" class="btn btn-danger ml-2">
+          <button #btnDeletar value="{{ cliente._id }}" (click)="deletar(btnDeletar.value)" class="btn btn-danger ml-2">
             <i class="fas fa-trash"></i>
             Deletar
+          </button>
+          <button #btnDetalhes (click)="exibirDetalhes(cliente)" class="btn btn-success ml-2">
+            Detalhes
           </button>
         </td>
       </tr>

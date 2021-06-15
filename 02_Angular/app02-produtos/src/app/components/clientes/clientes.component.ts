@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, ViewChild } fro
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Cliente } from 'src/app/classes/cliente';
 import { Produto } from 'src/app/classes/produto';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
@@ -49,7 +50,14 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
   public adicionarCliente(): void {
     if (this.form.valid) {
-      this.subscriptions.add(this.clientesService.postItem(this.form.value)
+      const cliente: Cliente = new Cliente(
+        this.form.value.nome,
+        this.form.value.dataNascimento,
+        this.form.value.cpf,
+        this.form.value.email,
+        [this.form.value.produto]
+      );
+      this.subscriptions.add(this.clientesService.postItem(cliente)
         .subscribe(() => {
           this.clienteAdicionado.emit(true);
           this.btnFecharModal.nativeElement.click();
