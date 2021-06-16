@@ -80,31 +80,35 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
       .subscribe((clientes: Cliente[]) => this.clientes = clientes));
   }
 
-  public deletar(id: string): void {
-    if (confirm('Deseja realmente deletar?')) {
-      this.subscriptions.add(this.clientesService.deleteItem(id)
-        .subscribe(() => {
-          alert('Cliente deletado');
-          this.consultarClientes();
-        }));
+  public deletar(cliente: Cliente): void {
+    if (cliente._id) {
+      if (confirm('Deseja realmente deletar?')) {
+        this.subscriptions.add(this.clientesService.deleteItem(cliente._id)
+          .subscribe(() => {
+            alert('Cliente deletado');
+            this.consultarClientes();
+          }));
+      }
     }
   }
 
-  public alterar(id: string): void {
-    this.alterandoCliente = true;
-    this.adicionandoProduto = false;
-    this.exibindoDetalhes = false;
-    this.subscriptions.add(this.clientesService.getItem(id)
-      .subscribe((cliente: Cliente) => {
-        this.form.setValue({
-          '_id': cliente._id,
-          'nome': cliente.nome,
-          'dataNascimento': new Date(cliente.dataNascimento).toISOString().substring(0, 10),
-          'cpf': cliente.cpf,
-          'email': cliente.email
-        });
-        this.btnExibirAlterarModal.nativeElement.click();
-      }));
+  public alterar(cliente: Cliente): void {
+    if (cliente._id) {
+      this.alterandoCliente = true;
+      this.adicionandoProduto = false;
+      this.exibindoDetalhes = false;
+      this.subscriptions.add(this.clientesService.getItem(cliente._id)
+        .subscribe((cliente: Cliente) => {
+          this.form.setValue({
+            '_id': cliente._id,
+            'nome': cliente.nome,
+            'dataNascimento': new Date(cliente.dataNascimento).toISOString().substring(0, 10),
+            'cpf': cliente.cpf,
+            'email': cliente.email
+          });
+          this.btnExibirAlterarModal.nativeElement.click();
+        }));
+    }
   }
 
   public alterarCliente(): void {
@@ -121,12 +125,14 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
     this.form.reset();
   }
 
-  public selecionarProdutos(id: string): void {
-    this.adicionandoProduto = true;
-    this.alterandoCliente = false;
-    this.exibindoDetalhes = false;
-    this.clienteSelecionadoId = id;
-    this.btnExibirAlterarModal.nativeElement.click();
+  public selecionarProdutos(cliente: Cliente): void {
+    if (cliente._id) {
+      this.adicionandoProduto = true;
+      this.alterandoCliente = false;
+      this.exibindoDetalhes = false;
+      this.clienteSelecionadoId = cliente._id;
+      this.btnExibirAlterarModal.nativeElement.click();
+    }
   }
 
   public adicionarProdutoClienteExistente(): void {

@@ -111,23 +111,17 @@
         <td>{{ cliente.cpf }}</td>
         <td>{{ cliente.email }}</td>
         <td>
-          <button #btnAddProdutos value="{{ cliente._id }}" (click)="selecionarProdutos(btnAddProdutos.value)"class="btn btn-warning">
-            <i class="fas fa-plus-circle"></i>
-            Adicionar Produto
-          </button>
-          <button #btnAlterar value="{{ cliente._id }}" (click)="alterar(btnDeletar.value)"
-            class="btn btn-secondary ml-2">
-            <i class="fas fa-edit"></i>
-            Alterar
-          </button>
-          <button #btnDeletar value="{{ cliente._id }}" (click)="deletar(btnDeletar.value)" class="btn btn-danger ml-2">
-            <i class="fas fa-trash"></i>
-            Deletar
-          </button>
-          <button #btnDetalhes (click)="exibirDetalhes(cliente)" class="btn btn-success ml-2">
-            <i class="fas fa-info-circle"></i>
-            Detalhes
-          </button>
+          <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Opções
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a (click)="selecionarProdutos(cliente)" class="dropdown-item"><i class="fas fa-plus-circle"></i> Adicionar Produto</a>
+              <a class="dropdown-item" (click)="exibirDetalhes(cliente)"><i class="fas fa-info-circle"></i> Detalhes</a>
+              <a class="dropdown-item" (click)="alterar(cliente)"><i class="fas fa-edit"></i> Alterar</a>
+              <a class="dropdown-item" (click)="deletar(cliente)"><i class="fas fa-trash"></i> Deletar</a>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>

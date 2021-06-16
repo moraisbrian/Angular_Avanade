@@ -1,10 +1,15 @@
 .selecionado {
-  font-weight: bold;
-  background-color: lightskyblue;
+  font-weight: 500;
+  background-color: #ceecff;
+  color: #ff0000;
 }
 
 .list-group {
   overflow: auto;
   min-height: 50px;
   max-height: 100px;
+}
+
+.dropdown-item {
+  cursor: pointer;
 }
