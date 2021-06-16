@@ -29,14 +29,14 @@
           <div class="form-group">
             <label>Produtos:</label>
             <ul class="list-group">
-              <li [ngClass]="{ 'selecionado': selecionado(produto) }" (click)="adicionarProduto(produto)" class="list-group-item" *ngFor="let produto of produtos">{{ produto.descricao }}</li>
+              <li [ngClass]="{ 'selecionado': produtoSelecionado(produto) }" (click)="adicionarProduto(produto)" class="list-group-item" *ngFor="let produto of produtos">{{ produto.descricao }}</li>
             </ul>
           </div>
         </div>
         <div class="modal-footer">
           <button (click)="limparFormulario()" type="reset" class="btn btn-secondary"
             data-dismiss="modal">Cancelar</button>
-          <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Adicionar</button>
+          <button [disabled]="!form.valid || produtosAdicionados.length <= 0" type="submit" class="btn btn-primary">Adicionar</button>
         </div>
       </form>
     </div>

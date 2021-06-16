@@ -6,6 +6,8 @@ import { Cliente } from 'src/app/classes/cliente';
 import { Produto } from 'src/app/classes/produto';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
+import { addIfNotContains } from 'src/app/shared/add-if-not-contains';
+import { selectedElement } from 'src/app/shared/selected-element';
 
 @Component({
   selector: 'app-clientes',
@@ -51,26 +53,19 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
   public adicionarProduto(produto: Produto): void {
     if (produto._id) {
-      const possui = this.produtosAdicionados.find(id => id === produto._id);
-      if (possui) {
-        this.produtosAdicionados = this.produtosAdicionados.filter(id => id !== produto._id);
-      } else {
-        this.produtosAdicionados.push(produto._id);
-      }
+      if (produto._id)
+      this.produtosAdicionados = addIfNotContains<string>(this.produtosAdicionados, produto._id);
     }
   }
 
-  public selecionado(produto: Produto): boolean {
-    if (produto._id) {
-      const adicionado = this.produtosAdicionados.find(p => p === produto._id);
-      if (adicionado)
-        return true;
-    }
+  public produtoSelecionado(produto: Produto): boolean {
+    if (produto._id)
+      return selectedElement(produto._id, this.produtosAdicionados);
     return false;
   }
 
   public adicionarCliente(): void {
-    if (this.form.valid) {
+    if (this.form.valid && this.produtosAdicionados.length > 0) {
       const cliente: Cliente = new Cliente(
         this.form.value.nome,
         this.form.value.dataNascimento,

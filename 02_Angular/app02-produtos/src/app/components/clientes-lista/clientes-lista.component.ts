@@ -5,6 +5,8 @@ import { Cliente } from 'src/app/classes/cliente';
 import { Produto } from 'src/app/classes/produto';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { ProdutosService } from 'src/app/services/produtos.service';
+import { selectedElement } from 'src/app/shared/selected-element';
+import { addIfNotContains } from '../../shared/add-if-not-contains';
 
 @Component({
   selector: 'app-clientes-lista',
@@ -37,22 +39,13 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
   public produtosAdicionados: string[] = [];
 
   public adicionarProduto(produto: Produto): void {
-    if (produto._id) {
-      const possui = this.produtosAdicionados.find(id => id === produto._id);
-      if (possui) {
-        this.produtosAdicionados = this.produtosAdicionados.filter(id => id !== produto._id);
-      } else {
-        this.produtosAdicionados.push(produto._id);
-      }
-    }
+    if (produto._id)
+      this.produtosAdicionados = addIfNotContains<string>(this.produtosAdicionados, produto._id);
   }
 
-  public selecionado(produto: Produto): boolean {
-    if (produto._id) {
-      const adicionado = this.produtosAdicionados.find(p => p === produto._id);
-      if (adicionado)
-        return true;
-    }
+  public produtoSelecionado(produto: Produto): boolean {
+    if (produto._id)
+      return selectedElement(produto._id, this.produtosAdicionados);
     return false;
   }
 
@@ -136,7 +129,7 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
     this.btnExibirAlterarModal.nativeElement.click();
   }
 
-  public addProduto(): void {
+  public adicionarProdutoClienteExistente(): void {
     if (this.produtosAdicionados.length > 0) {
       this.subscriptions.add(this.clientesService.getItem(this.clienteSelecionadoId)
         .subscribe((cliente: Cliente) => {

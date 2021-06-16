@@ -5,7 +5,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="alterarModalLabel">{{ adicionandoProduto ? 'Adicionar produto' : alterandoCliente ?
           'Alterar cliente' : 'Detalhes' }}</h5>
-        <button #btnFecharModal type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button #btnFecharModal type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limparFormulario()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -14,14 +14,14 @@
             <div class="form-group">
               <label>Produtos:</label>
               <ul class="list-group">
-                <li [ngClass]="{ 'selecionado': selecionado(produto) }" (click)="adicionarProduto(produto)" class="list-group-item" *ngFor="let produto of produtos">{{ produto.descricao }}</li>
+                <li [ngClass]="{ 'selecionado': produtoSelecionado(produto) }" (click)="adicionarProduto(produto)" class="list-group-item" *ngFor="let produto of produtos">{{ produto.descricao }}</li>
               </ul>
             </div>
           </div>
           <div class="modal-footer">
             <button (click)="limparFormulario()" type="reset" class="btn btn-secondary"
               data-dismiss="modal">Cancelar</button>
-            <button (click)="addProduto()" [disabled]="produtosAdicionados.length <= 0" type="submit" class="btn btn-primary">Adicionar</button>
+            <button (click)="adicionarProdutoClienteExistente()" [disabled]="produtosAdicionados.length <= 0" type="submit" class="btn btn-primary">Adicionar</button>
           </div>
       </div>
       <ng-template #clienteForm>
