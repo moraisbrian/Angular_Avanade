@@ -12,6 +12,7 @@ import { SubListaPipe } from 'src/app/pipes/sub-lista.pipe';
 import { SimboloPipe } from 'src/app/pipes/simbolo.pipe';
 import { DescontoPipe } from '../../pipes/desconto.pipe';
 import { CategoriaPipe } from 'src/app/pipes/categoria.pipe';
+import { ProdutoClientePipe } from 'src/app/pipes/produto-cliente.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CategoriaPipe } from 'src/app/pipes/categoria.pipe';
     SubListaPipe,
     SimboloPipe,
     DescontoPipe,
-    CategoriaPipe
+    CategoriaPipe,
+    ProdutoClientePipe
   ],
   imports: [
     CommonModule,
