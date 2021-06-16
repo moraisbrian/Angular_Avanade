@@ -1,28 +1,19 @@
-import { OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { Cliente } from '../classes/cliente';
 import { Produto } from '../classes/produto';
-import { ClientesService } from '../services/clientes.service';
 
 @Pipe({
   name: 'produtoCliente'
 })
-export class ProdutoClientePipe implements PipeTransform, OnInit {
-  constructor(private clientesService: ClientesService) {}
+export class ProdutoClientePipe implements PipeTransform {
 
-  ngOnInit(): void {
-    this.clientesService.getLista()
-      .subscribe((clientes: Cliente[]) => this.clientes = clientes);
-  }
-
-  private clientes: Cliente[] = [];
-
-  transform(produtos: Produto[], input: string): Produto[] {
+  transform(produtos: Produto[], input: string, clientes: Cliente[]): Produto[] {
     if (!input)
       return produtos;
 
-    const clientesFilter = this.clientes.filter(cliente => {
-      input.includes(cliente.nome)
-    });
+    const clientesFilter = clientes.filter(cliente =>
+      cliente.nome.toLowerCase()
+        .includes(input.toLowerCase()));
 
     const produtosFilter: Produto[] = [];
 
