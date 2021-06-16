@@ -6,7 +6,6 @@ import { Produto } from '../classes/produto';
   name: 'produtoCliente'
 })
 export class ProdutoClientePipe implements PipeTransform {
-
   transform(produtos: Produto[], input: string, clientes: Cliente[]): Produto[] {
     if (!input)
       return produtos;
@@ -19,12 +18,12 @@ export class ProdutoClientePipe implements PipeTransform {
 
     for (let i = 0; i < clientesFilter.length; i++) {
       for (let j = 0; j < clientesFilter[i].produtos.length; j++) {
-        const encontrado = produtos.find(a => a._id === clientesFilter[i].produtos[j]);
+        const encontrado = produtos.find(produto => produto._id === clientesFilter[i].produtos[j]);
         if (encontrado)
           produtosFilter.push(encontrado);
       }
     }
 
-    return produtosFilter;
+    return produtosFilter.filter((produto, index) => produtosFilter.indexOf(produto) === index);
   }
 }
