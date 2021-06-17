@@ -1,4 +1,4 @@
-<app-menu [usuario]="nome" (novoEvento)="mostrar($event)"></app-menu>
+<app-menu [usuario]="nome" (novoEvento)="logoff($event)"></app-menu>
 <div class="container">
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="onActivate($event)" (deactivate)="onDeactivate()"></router-outlet>
 </div>

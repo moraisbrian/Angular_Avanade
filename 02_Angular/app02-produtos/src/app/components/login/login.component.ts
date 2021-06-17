@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   private storage: Storage = localStorage;
+  @Output() usuarioAdicionado: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public builderForm: FormGroup = this.form.group({
     usuario: [''],
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
     if (valida && senha === 'admin') {
       this.storage.setItem('usuario', usuario);
       this.router.navigate(['/home']);
+      this.usuarioAdicionado.emit(true);
     } else {
       this.builderForm.reset();
     }

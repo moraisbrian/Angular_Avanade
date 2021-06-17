@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { LoginComponent } from './components/login/login.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  constructor() {
+export class AppComponent implements OnInit, OnDestroy {
+  constructor(private router: Router) {
     this.storage = localStorage;
+  }
+
+  ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -25,9 +32,26 @@ export class AppComponent implements OnInit {
   public nome: string = '';
   private storage: Storage;
 
-  public mostrar(texto: string): void {
+  public logoff(texto: string): void {
     this.storage.removeItem('usuario');
     this.atribuirUsuario();
-    alert(texto);
+    this.router.navigate(['/home']);
+  }
+
+  private loginSubscription: Subscription = new Subscription();
+
+  onActivate(component: any): void {
+    if (component instanceof LoginComponent) {
+      this.loginSubscription = component.usuarioAdicionado
+        .subscribe((result: boolean) => {
+          if (result) {
+            this.atribuirUsuario();
+          }
+        });
+    }
+  }
+
+  onDeactivate(): void {
+    this.loginSubscription.unsubscribe();
   }
 }
