@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private form: FormBuilder,
-    private router: Router
+    private router: Router,
+    private usuariosService: UsuariosService
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,9 @@ export class LoginComponent implements OnInit {
     const usuario = this.builderForm.value.usuario;
     const senha = this.builderForm.value.senha;
 
-    if (usuario === 'admin' && senha === 'admin') {
+    const valida = this.usuariosService.usuarios.includes(usuario);
+
+    if (valida && senha === 'admin') {
       this.storage.setItem('usuario', usuario);
       this.router.navigate(['/home']);
     } else {
