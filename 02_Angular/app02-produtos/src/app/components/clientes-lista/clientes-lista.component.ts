@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Cliente } from 'src/app/classes/cliente';
 import { Produto } from 'src/app/classes/produto';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -63,7 +63,7 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription = new Subscription();
 
-  @Input() clienteAdicionado: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() clienteAdicionado: Subject<boolean> = new Subject<boolean>();
   @ViewChild('btnExibirAlterarModal', { static: true }) private btnExibirAlterarModal!: ElementRef;
   @ViewChild('btnFecharModal', { static: true }) private btnFecharModal!: ElementRef;
 
