@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProdutosListaRoutingModule } from './produtos-lista-routing.module';
 import { ProdutosListaComponent } from '../../components/views/produtos-lista/produtos-lista.component';
+import { HttpClientModule } from '@angular/common/http';
+
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -9,7 +12,9 @@ import { ProdutosListaComponent } from '../../components/views/produtos-lista/pr
   ],
   imports: [
     CommonModule,
-    ProdutosListaRoutingModule
+    ProdutosListaRoutingModule,
+    HttpClientModule,
+    MatTableModule
   ],
   exports: [
     ProdutosListaComponent

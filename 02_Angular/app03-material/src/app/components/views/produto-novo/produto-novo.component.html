@@ -1,0 +1,33 @@
+<mat-card class="mat-elevation-z3">
+  <mat-card-title>Novo Produto</mat-card-title>
+  <form>
+    <mat-form-field>
+      <mat-label>Código do Produto</mat-label>
+      <input matInput [(ngModel)]="produto.codigo" name="codigo">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Descrição</mat-label>
+      <input matInput [(ngModel)]="produto.descricao" name="descricao">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Unidade</mat-label>
+      <input matInput [(ngModel)]="produto.unidade" name="unidade">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Preço</mat-label>
+      <input matInput [(ngModel)]="produto.preco" name="preco">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Categoria</mat-label>
+      <mat-select [(ngModel)]="produto.categoria" name="categoria">
+        <mat-option *ngFor="let categoria of categorias" value="{{ categoria }}">{{ categoria }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="incluirProduto()">Incluir Produto</button>
+  </form>
+</mat-card>

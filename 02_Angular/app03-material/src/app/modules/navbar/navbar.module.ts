@@ -6,6 +6,7 @@ import { NavbarComponent } from '../../components/modelos/navbar/navbar.componen
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { HomeModule } from '../home/home.module';
+import { ProdutosModule } from '../produtos/produtos.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HomeModule } from '../home/home.module';
     NavbarRoutingModule,
     MatSidenavModule,
     MatListModule,
-    HomeModule
+    HomeModule,
+    ProdutosModule
   ],
   exports: [
     NavbarComponent
