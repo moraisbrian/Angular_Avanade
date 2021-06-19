@@ -42,6 +42,7 @@ export class ProdutoNovoComponent implements OnInit, OnDestroy {
   public incluirProduto(): void {
     this.subscriptions.add(this.produtosService.postItem(this.produto)
       .subscribe(() => {
+        this.produtosService.showMessage('Produto incluído com sucesso');
         this.router.navigate(['/produtos']);
       }));
   }
